@@ -2,6 +2,7 @@
   "use strict";
 
   const STORAGE_KEY = "inhale_user_name";
+  const COUNTDOWNS_KEY = "inhale_countdowns";
 
   // --- Storage shim (falls back to localStorage for web preview) ---
 
@@ -13,7 +14,9 @@
         var result = {};
         keys.forEach(function (k) {
           var v = localStorage.getItem(k);
-          if (v !== null) result[k] = v;
+          if (v !== null) {
+            try { result[k] = JSON.parse(v); } catch (e) { result[k] = v; }
+          }
         });
         cb(result);
       }
@@ -23,7 +26,7 @@
         chrome.storage.local.set(obj, cb);
       } else {
         Object.keys(obj).forEach(function (k) {
-          localStorage.setItem(k, obj[k]);
+          localStorage.setItem(k, typeof obj[k] === "string" ? obj[k] : JSON.stringify(obj[k]));
         });
         if (cb) cb();
       }
@@ -54,6 +57,16 @@
     hours = hours % 12 || 12;
     const mins = minutes < 10 ? "0" + minutes : minutes;
     return hours + ":" + mins + " " + ampm;
+  }
+
+  function daysUntil(dateStr) {
+    var now = new Date();
+    var today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    var parts = dateStr.split("-");
+    var target = new Date(parseInt(parts[0]), parseInt(parts[1]) - 1, parseInt(parts[2]));
+    var diff = target - today;
+    var days = Math.ceil(diff / (1000 * 60 * 60 * 24));
+    return days < 0 ? 0 : days;
   }
 
   // --- Background Gradient ---
@@ -113,6 +126,122 @@
       });
   }
 
+  // --- Countdowns ---
+
+  function renderCountdowns(countdowns) {
+    var container = document.getElementById("countdowns");
+    container.innerHTML = "";
+    if (!countdowns || countdowns.length === 0) return;
+
+    var sorted = countdowns.slice().sort(function (a, b) {
+      return daysUntil(a.date) - daysUntil(b.date);
+    });
+
+    sorted.forEach(function (c) {
+      var chip = document.createElement("div");
+      chip.className = "countdown-chip";
+      chip.textContent = c.label + " " + daysUntil(c.date) + "d";
+      container.appendChild(chip);
+    });
+  }
+
+  function loadAndRenderCountdowns() {
+    storage.get([COUNTDOWNS_KEY], function (result) {
+      var countdowns = result[COUNTDOWNS_KEY] || [];
+      renderCountdowns(countdowns);
+    });
+  }
+
+  // --- Settings Modal ---
+
+  function renderCountdownsList(countdowns) {
+    var list = document.getElementById("countdowns-list");
+    list.innerHTML = "";
+    if (!countdowns || countdowns.length === 0) {
+      var empty = document.createElement("p");
+      empty.className = "countdowns-empty";
+      empty.textContent = "No countdowns yet";
+      list.appendChild(empty);
+      return;
+    }
+
+    countdowns.forEach(function (c) {
+      var item = document.createElement("div");
+      item.className = "countdown-item";
+
+      var info = document.createElement("div");
+      info.textContent = c.label + " ";
+      var dateSpan = document.createElement("span");
+      dateSpan.textContent = c.date;
+      info.appendChild(dateSpan);
+
+      var del = document.createElement("button");
+      del.className = "countdown-delete";
+      del.textContent = "\u00d7";
+      del.title = "Remove";
+      del.addEventListener("click", function () {
+        deleteCountdown(c.id);
+      });
+
+      item.appendChild(info);
+      item.appendChild(del);
+      list.appendChild(item);
+    });
+  }
+
+  function deleteCountdown(id) {
+    storage.get([COUNTDOWNS_KEY], function (result) {
+      var countdowns = (result[COUNTDOWNS_KEY] || []).filter(function (c) {
+        return c.id !== id;
+      });
+      storage.set({ [COUNTDOWNS_KEY]: countdowns }, function () {
+        renderCountdownsList(countdowns);
+        renderCountdowns(countdowns);
+      });
+    });
+  }
+
+  function setupSettings() {
+    var overlay = document.getElementById("settings-overlay");
+    var btn = document.getElementById("settings-btn");
+    var closeBtn = document.getElementById("settings-close");
+    var form = document.getElementById("add-countdown-form");
+
+    btn.addEventListener("click", function () {
+      storage.get([COUNTDOWNS_KEY], function (result) {
+        renderCountdownsList(result[COUNTDOWNS_KEY] || []);
+      });
+      overlay.classList.remove("hidden");
+    });
+
+    closeBtn.addEventListener("click", function () {
+      overlay.classList.add("hidden");
+    });
+
+    overlay.addEventListener("click", function (e) {
+      if (e.target === overlay) {
+        overlay.classList.add("hidden");
+      }
+    });
+
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      var label = document.getElementById("countdown-label").value.trim();
+      var date = document.getElementById("countdown-date").value;
+      if (!label || !date) return;
+
+      storage.get([COUNTDOWNS_KEY], function (result) {
+        var countdowns = result[COUNTDOWNS_KEY] || [];
+        countdowns.push({ id: Date.now().toString(), label: label, date: date });
+        storage.set({ [COUNTDOWNS_KEY]: countdowns }, function () {
+          renderCountdownsList(countdowns);
+          renderCountdowns(countdowns);
+          form.reset();
+        });
+      });
+    });
+  }
+
   // --- Setup ---
 
   function showSetup() {
@@ -137,6 +266,8 @@
     updateClock();
     updateGreeting(name);
     loadQuote();
+    loadAndRenderCountdowns();
+    setupSettings();
 
     setInterval(updateClock, 1000);
     // Update greeting every minute (in case morning -> afternoon transition)
