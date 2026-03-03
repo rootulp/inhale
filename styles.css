@@ -13,11 +13,20 @@ html, body {
 
 body {
   background-color: #1a1a2e;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
   color: #fff;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  opacity: 0.6;
+  transition: opacity 0.8s ease-in;
+}
+
+body.bg-loaded {
+  opacity: 1;
 }
 
 .hidden {
