@@ -3,6 +3,33 @@
 
   const STORAGE_KEY = "inhale_user_name";
 
+  // --- Storage shim (falls back to localStorage for web preview) ---
+
+  var storage = {
+    get: function (keys, cb) {
+      if (typeof chrome !== "undefined" && chrome.storage) {
+        chrome.storage.local.get(keys, cb);
+      } else {
+        var result = {};
+        keys.forEach(function (k) {
+          var v = localStorage.getItem(k);
+          if (v !== null) result[k] = v;
+        });
+        cb(result);
+      }
+    },
+    set: function (obj, cb) {
+      if (typeof chrome !== "undefined" && chrome.storage) {
+        chrome.storage.local.set(obj, cb);
+      } else {
+        Object.keys(obj).forEach(function (k) {
+          localStorage.setItem(k, obj[k]);
+        });
+        if (cb) cb();
+      }
+    }
+  };
+
   // --- Helpers ---
 
   function getDayOfYear() {
@@ -96,7 +123,7 @@
       e.preventDefault();
       var name = document.getElementById("name-input").value.trim();
       if (!name) return;
-      chrome.storage.local.set({ [STORAGE_KEY]: name }, function () {
+      storage.set({ [STORAGE_KEY]: name }, function () {
         showMain(name);
       });
     });
@@ -118,7 +145,7 @@
 
   // --- Init ---
 
-  chrome.storage.local.get([STORAGE_KEY], function (result) {
+  storage.get([STORAGE_KEY], function (result) {
     if (result[STORAGE_KEY]) {
       showMain(result[STORAGE_KEY]);
     } else {
