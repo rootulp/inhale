@@ -29,28 +29,29 @@
     return hours + ":" + mins + " " + ampm;
   }
 
-  // --- Background Photo (Unsplash) ---
+  // --- Background Photo (Pexels) ---
 
-  var UNSPLASH_PHOTOS = [
-    "photo-1506744038136-46273834b3fb", // mountain lake
-    "photo-1470071459604-3b5ec3a7fe05", // foggy forest
-    "photo-1441974231531-c6227db76b6e", // sunlit forest
-    "photo-1465146344425-f00d5f5c8f07", // wildflower field
-    "photo-1472214103451-9374bd1c798e", // sunset mountains
-    "photo-1500534314263-0869cef23d64", // ocean waves
-    "photo-1507525428034-b723cf961d3e", // tropical beach
-    "photo-1418065460487-3e41a6c84dc5", // misty mountains
-    "photo-1475924156734-496f6cac6ec1", // northern lights
-    "photo-1431512284068-4c4002298068"  // desert landscape
+  var PEXELS_PHOTOS = [
+    346529,   // calm lake between mountains
+    417074,   // Moraine Lake, Banff at sunrise
+    1367192,  // foggy forest
+    1562058,  // aurora borealis over snowy coast
+    1473080,  // ocean waves during sunset
+    3734875,  // sunlight streaming through forest
+    2259836,  // calm lake overlooking forest and mountain
+    459225,   // field in front of mountain peak
+    635279,   // beach during sunset
+    4827      // aerial view of forest trees in fog
   ];
 
   function buildPhotoUrl(photoId) {
-    return "https://images.unsplash.com/" + photoId + "?w=1920&q=80&fit=crop";
+    return "https://images.pexels.com/photos/" + photoId +
+      "/pexels-photo-" + photoId + ".jpeg?auto=compress&cs=tinysrgb&w=1920&h=1080&fit=crop";
   }
 
   function setBackground() {
-    var index = getDayOfYear() % UNSPLASH_PHOTOS.length;
-    var url = buildPhotoUrl(UNSPLASH_PHOTOS[index]);
+    var index = getDayOfYear() % PEXELS_PHOTOS.length;
+    var url = buildPhotoUrl(PEXELS_PHOTOS[index]);
 
     var img = new Image();
     img.onload = function () {
