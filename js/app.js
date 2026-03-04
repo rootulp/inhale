@@ -4,7 +4,13 @@ import * as backgrounds from "./backgrounds.js";
 import * as clock from "./clock.js";
 import * as quotes from "./quotes.js";
 import * as countdowns from "./countdowns.js";
-import * as settings from "./settings.js";
+import { init as settingsInit, getSettings } from "./settings.js";
+
+function applyFontSize(size) {
+  const html = document.documentElement;
+  html.classList.remove("font-size-small", "font-size-medium", "font-size-large");
+  html.classList.add("font-size-" + (size || "medium"));
+}
 
 async function showSetup() {
   await theme.init();
@@ -21,15 +27,26 @@ async function showSetup() {
 }
 
 async function showMain(name) {
+  const settings = await getSettings();
+
   await theme.init();
+  applyFontSize(settings.fontSize);
+
   document.getElementById("setup").classList.add("hidden");
   document.getElementById("main").classList.remove("hidden");
 
   backgrounds.init();
-  clock.init(name);
+  clock.init(name, settings);
   quotes.init();
   countdowns.init();
-  settings.init();
+  settingsInit();
+
+  // Listen for font size changes
+  window.addEventListener("inhale:setting-change", (e) => {
+    if (e.detail && e.detail.key === "fontSize") {
+      applyFontSize(e.detail.value);
+    }
+  });
 }
 
 // --- Init ---

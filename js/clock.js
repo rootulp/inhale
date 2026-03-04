@@ -1,4 +1,13 @@
+let clockFormat = "12h";
+let greetingVisible = true;
+let currentName = "";
+
 function formatTime(date) {
+  if (clockFormat === "24h") {
+    const hours = date.getHours();
+    const mins = date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes();
+    return hours + ":" + mins;
+  }
   let hours = date.getHours();
   const minutes = date.getMinutes();
   const ampm = hours >= 12 ? "PM" : "AM";
@@ -19,18 +28,49 @@ function updateClock() {
   clockEl.textContent = formatTime(new Date());
 }
 
-function updateGreeting(name) {
+function updateGreeting() {
   const greetingEl = document.getElementById("greeting");
-  greetingEl.textContent = getGreetingPrefix() + ", " + name;
+  if (!greetingVisible) {
+    greetingEl.classList.add("hidden");
+    return;
+  }
+  greetingEl.classList.remove("hidden");
+  greetingEl.textContent = getGreetingPrefix() + ", " + currentName;
 }
 
-export function init(name) {
+export function init(name, settings) {
+  currentName = name;
+  if (settings) {
+    clockFormat = settings.clockFormat || "12h";
+    greetingVisible = settings.greeting !== false;
+  }
+
   updateClock();
-  updateGreeting(name);
+  updateGreeting();
 
   setInterval(updateClock, 1000);
-  // Update greeting every minute (in case morning -> afternoon transition)
-  setInterval(() => { updateGreeting(name); }, 60000);
+  setInterval(updateGreeting, 60000);
+
+  // Listen for setting changes
+  window.addEventListener("inhale:setting-change", (e) => {
+    if (!e.detail) return;
+    if (e.detail.key === "clockFormat") {
+      clockFormat = e.detail.value;
+      updateClock();
+    }
+    if (e.detail.key === "greeting") {
+      greetingVisible = e.detail.value;
+      updateGreeting();
+    }
+  });
+
+  // Listen for name changes
+  window.addEventListener("inhale:name-change", (e) => {
+    if (e.detail && e.detail.name) {
+      currentName = e.detail.name;
+      updateGreeting();
+    }
+  });
 }
 
 export { formatTime, getGreetingPrefix };
