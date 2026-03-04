@@ -6,6 +6,7 @@
   <title>New Tab</title>
   <link rel="stylesheet" href="css/base.css">
   <link rel="stylesheet" href="css/settings.css">
+  <link rel="stylesheet" href="css/weather.css">
 </head>
 <body>
   <!-- Name setup prompt (shown on first visit) -->
@@ -30,6 +31,14 @@
     <div class="quote-container">
       <p id="quote" class="quote"></p>
       <p id="quote-author" class="quote-author"></p>
+    </div>
+    <div id="weather" class="weather hidden">
+      <span id="weather-icon" class="weather-icon"></span>
+      <div class="weather-info">
+        <span id="weather-temp" class="weather-temp"></span>
+        <span id="weather-condition" class="weather-condition"></span>
+        <span id="weather-range" class="weather-range"></span>
+      </div>
     </div>
     <button id="settings-btn" class="settings-btn" title="Settings">&#9881;</button>
   </div>

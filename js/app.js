@@ -4,6 +4,7 @@ import * as backgrounds from "./backgrounds.js";
 import * as clock from "./clock.js";
 import * as quotes from "./quotes.js";
 import * as countdowns from "./countdowns.js";
+import * as weather from "./weather.js";
 import { init as settingsInit, getSettings } from "./settings.js";
 
 const VALID_FONT_SIZES = ["small", "medium", "large"];
@@ -44,6 +45,8 @@ async function showMain(name) {
   clock.init(name, settings);
   quotes.init();
   countdowns.init();
+  weather.init();
+  weather.renderSettingsPanel();
   settingsInit();
 
   if (!mainInitialized) {
