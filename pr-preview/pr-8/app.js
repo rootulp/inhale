@@ -69,70 +69,6 @@
     return days < 0 ? 0 : days;
   }
 
-  var EMOJIS = [
-    "✈️", "🏖️", "🌴", "🏔️",
-    "🎉", "🎂", "🎄", "🎓",
-    "💼", "📚", "🎯", "💰",
-    "🏃", "💪", "⭐", "🔥",
-    "🏠", "❤️", "🚀", "🎵",
-    "🐶", "🌸", "☀️", "🍕"
-  ];
-
-  function setupEmojiPicker() {
-    var trigger = document.getElementById("emoji-trigger");
-    var popup = document.getElementById("emoji-popup");
-    var selectedEmoji = null;
-
-    // Populate popup grid
-    EMOJIS.forEach(function (emoji) {
-      var btn = document.createElement("button");
-      btn.type = "button";
-      btn.className = "emoji-option";
-      btn.textContent = emoji;
-      btn.addEventListener("click", function () {
-        selectedEmoji = emoji;
-        trigger.textContent = emoji;
-        trigger.classList.add("has-emoji");
-        popup.classList.add("hidden");
-      });
-      popup.appendChild(btn);
-    });
-
-    // Toggle popup on trigger click
-    trigger.addEventListener("click", function (e) {
-      e.stopPropagation();
-      if (!popup.classList.contains("hidden")) {
-        popup.classList.add("hidden");
-        return;
-      }
-      if (selectedEmoji) {
-        selectedEmoji = null;
-        trigger.textContent = "😀";
-        trigger.classList.remove("has-emoji");
-      }
-      popup.classList.remove("hidden");
-    });
-
-    // Close popup when clicking outside
-    document.addEventListener("click", function () {
-      popup.classList.add("hidden");
-    });
-
-    // Prevent popup clicks from closing it
-    popup.addEventListener("click", function (e) {
-      e.stopPropagation();
-    });
-
-    return {
-      getSelected: function () { return selectedEmoji; },
-      reset: function () {
-        selectedEmoji = null;
-        trigger.textContent = "😀";
-        trigger.classList.remove("has-emoji");
-        popup.classList.add("hidden");
-      }
-    };
-  }
 
   // --- Background Gradient ---
 
@@ -283,7 +219,6 @@
     var btn = document.getElementById("settings-btn");
     var closeBtn = document.getElementById("settings-close");
     var form = document.getElementById("add-countdown-form");
-    var emojiPicker = setupEmojiPicker();
 
     btn.addEventListener("click", function () {
       storage.get([COUNTDOWNS_KEY], function (result) {
@@ -311,14 +246,13 @@
       storage.get([COUNTDOWNS_KEY], function (result) {
         var countdowns = result[COUNTDOWNS_KEY] || [];
         var entry = { id: Date.now().toString(), label: label, date: date };
-        var emoji = emojiPicker.getSelected();
+        var emoji = document.getElementById("countdown-emoji").value.trim();
         if (emoji) entry.emoji = emoji;
         countdowns.push(entry);
         storage.set({ [COUNTDOWNS_KEY]: countdowns }, function () {
           renderCountdownsList(countdowns);
           renderCountdowns(countdowns);
           form.reset();
-          emojiPicker.reset();
         });
       });
     });
