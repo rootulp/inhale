@@ -7,6 +7,7 @@
   <link rel="stylesheet" href="css/base.css">
   <link rel="stylesheet" href="css/settings.css">
   <link rel="stylesheet" href="css/weather.css">
+  <link rel="stylesheet" href="css/focus.css">
 </head>
 <body>
   <!-- Name setup prompt (shown on first visit) -->
@@ -27,6 +28,10 @@
     <div class="content">
       <div id="clock" class="clock"></div>
       <div id="greeting" class="greeting"></div>
+      <div id="focus" class="focus">
+        <input type="text" id="focus-input" class="focus-input" placeholder="What's your focus today?" maxlength="100">
+        <p id="focus-text" class="focus-text hidden"></p>
+      </div>
     </div>
     <div class="quote-container">
       <p id="quote" class="quote"></p>
