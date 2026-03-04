@@ -10,11 +10,28 @@
   align-items: center;
   justify-content: center;
   z-index: 100;
+  visibility: hidden;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease-out, visibility 0.2s;
+}
+
+.settings-overlay.hidden {
+  display: flex;
+}
+
+.settings-overlay:not(.hidden) {
+  visibility: visible;
+  opacity: 1;
+  pointer-events: auto;
 }
 
 .settings-modal {
   background: var(--glass-bg);
-  backdrop-filter: blur(10px);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-shadow);
   border-radius: 12px;
   padding: 2rem;
   min-width: 380px;
@@ -24,6 +41,12 @@
   color: var(--text-primary);
   max-height: 80vh;
   overflow-y: auto;
+  transform: translateY(20px);
+  transition: transform 0.25s ease-out;
+}
+
+.settings-overlay:not(.hidden) .settings-modal {
+  transform: translateY(0);
 }
 
 .settings-modal h2 {

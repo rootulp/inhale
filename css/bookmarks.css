@@ -17,7 +17,8 @@
   background: var(--glass-bg);
   border: 1px solid var(--glass-border);
   border-radius: 8px;
-  backdrop-filter: blur(8px);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   box-shadow: var(--glass-shadow);
   font-size: 0.8rem;
   font-weight: 300;

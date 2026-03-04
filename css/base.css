@@ -66,7 +66,10 @@ body {
   background: var(--glass-bg);
   padding: 3rem;
   border-radius: 12px;
-  backdrop-filter: blur(10px);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-shadow);
 }
 
 .setup-container h1 {
@@ -137,7 +140,8 @@ body {
   font-size: 6rem;
   font-weight: 200;
   text-shadow: var(--text-shadow);
-  letter-spacing: 0.05em;
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
 }
 
 .greeting {
@@ -148,14 +152,14 @@ body {
 }
 
 .quote-container {
-  padding: 2rem;
+  padding: 2.5rem 2rem;
   text-align: center;
   max-width: 700px;
 }
 
 .quote {
   font-size: 1.1rem;
-  font-weight: 300;
+  font-weight: 200;
   font-style: italic;
   text-shadow: var(--text-shadow-sm);
   line-height: 1.6;
@@ -212,3 +216,19 @@ html.font-size-large { font-size: 18px; }
 .settings-btn:hover {
   opacity: 0.9;
 }
+
+/* Staggered page-load animation */
+@keyframes fadeSlideIn {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+#main .clock { animation: fadeSlideIn 0.6s ease-out 0.1s both; }
+#main .greeting { animation: fadeSlideIn 0.6s ease-out 0.2s both; }
+#main .focus { animation: fadeSlideIn 0.6s ease-out 0.3s both; }
+#main .quote-container { animation: fadeSlideIn 0.6s ease-out 0.4s both; }
+#main .bookmarks { animation: fadeSlideIn 0.6s ease-out 0.5s both; }
+#main .countdowns { animation: fadeSlideIn 0.4s ease-out 0.2s both; }
+#main .weather { animation: fadeSlideIn 0.4s ease-out 0.3s both; }
+#main .breathe-btn { animation: fadeSlideIn 0.4s ease-out 0.4s both; }
+#main .settings-btn { animation: fadeSlideIn 0.4s ease-out 0.4s both; }
