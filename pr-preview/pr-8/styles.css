@@ -1,0 +1,332 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  font-family: system-ui, sans-serif;
+}
+
+body {
+  background-color: #1a1a2e;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.hidden {
+  display: none !important;
+}
+
+/* Setup screen */
+#setup {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
+.setup-container {
+  text-align: center;
+  background: rgba(0, 0, 0, 0.5);
+  padding: 3rem;
+  border-radius: 12px;
+  backdrop-filter: blur(10px);
+}
+
+.setup-container h1 {
+  font-size: 2rem;
+  font-weight: 300;
+  margin-bottom: 0.5rem;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.setup-container p {
+  font-size: 1.2rem;
+  font-weight: 300;
+  margin-bottom: 1.5rem;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+#name-input {
+  padding: 0.75rem 1.25rem;
+  font-size: 1.1rem;
+  border: none;
+  border-radius: 6px;
+  outline: none;
+  width: 250px;
+  text-align: center;
+  background: rgba(255, 255, 255, 0.9);
+  color: #333;
+}
+
+#name-form button {
+  display: block;
+  margin: 1rem auto 0;
+  padding: 0.6rem 2rem;
+  font-size: 1rem;
+  border: 2px solid #fff;
+  border-radius: 6px;
+  background: transparent;
+  color: #fff;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+
+#name-form button:hover {
+  background: #fff;
+  color: #333;
+}
+
+/* Main content */
+#main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.content {
+  text-align: center;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.clock {
+  font-size: 6rem;
+  font-weight: 200;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+  letter-spacing: 0.05em;
+}
+
+.greeting {
+  font-size: 1.5rem;
+  font-weight: 300;
+  margin-top: 0.5rem;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+}
+
+.quote-container {
+  padding: 2rem;
+  text-align: center;
+  max-width: 700px;
+}
+
+.quote {
+  font-size: 1.1rem;
+  font-weight: 300;
+  font-style: italic;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+  line-height: 1.6;
+}
+
+.quote-author {
+  font-size: 0.9rem;
+  font-weight: 300;
+  margin-top: 0.5rem;
+  opacity: 0.8;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+}
+
+/* Countdowns */
+.countdowns {
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  align-items: flex-end;
+  max-width: 50%;
+}
+
+.countdown-chip {
+  font-size: 0.8rem;
+  font-weight: 400;
+  letter-spacing: 0.03em;
+  padding: 0.35rem 0.85rem;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 20px;
+  white-space: nowrap;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+}
+
+.countdown-chip .countdown-days {
+  font-weight: 600;
+  margin-left: 0.3rem;
+}
+
+/* Settings button */
+.settings-btn {
+  position: absolute;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 1.5rem;
+  cursor: pointer;
+  opacity: 0.4;
+  transition: opacity 0.2s;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+}
+
+.settings-btn:hover {
+  opacity: 0.9;
+}
+
+/* Settings modal */
+.settings-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+}
+
+.settings-modal {
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(10px);
+  border-radius: 12px;
+  padding: 2rem;
+  min-width: 340px;
+  max-width: 400px;
+  position: relative;
+  color: #fff;
+}
+
+.settings-modal h2 {
+  font-size: 1.4rem;
+  font-weight: 300;
+  margin-bottom: 1.5rem;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+.settings-modal h3 {
+  font-size: 1rem;
+  font-weight: 400;
+  margin-bottom: 0.75rem;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+.settings-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 1.5rem;
+  cursor: pointer;
+  opacity: 0.7;
+  transition: opacity 0.2s;
+}
+
+.settings-close:hover {
+  opacity: 1;
+}
+
+.countdowns-list {
+  margin-bottom: 1rem;
+}
+
+.countdown-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.4rem 0;
+  font-size: 0.95rem;
+  font-weight: 300;
+}
+
+.countdown-item span {
+  opacity: 0.7;
+  font-size: 0.85rem;
+}
+
+.countdown-delete {
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 1.2rem;
+  cursor: pointer;
+  opacity: 0.5;
+  transition: opacity 0.2s;
+  padding: 0 0.25rem;
+}
+
+.countdown-delete:hover {
+  opacity: 1;
+}
+
+.countdowns-empty {
+  font-size: 0.9rem;
+  font-weight: 300;
+  opacity: 0.5;
+  margin-bottom: 1rem;
+}
+
+.add-countdown-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.add-countdown-form input[type="text"],
+.add-countdown-form input[type="date"] {
+  flex: 1;
+  min-width: 0;
+  padding: 0.5rem 0.75rem;
+  font-size: 0.9rem;
+  border: none;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.9);
+  color: #333;
+  outline: none;
+}
+
+.add-countdown-form input[type="text"] {
+  flex: 1 1 100%;
+}
+
+.add-countdown-form input[type="date"] {
+  flex: 1 1 55%;
+}
+
+.add-countdown-form button {
+  flex: 0 0 auto;
+  padding: 0.5rem 1rem;
+  font-size: 0.9rem;
+  border: 2px solid #fff;
+  border-radius: 6px;
+  background: transparent;
+  color: #fff;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+  white-space: nowrap;
+}
+
+.add-countdown-form button:hover {
+  background: #fff;
+  color: #333;
+}
