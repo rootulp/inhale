@@ -41,6 +41,10 @@
       <h3>Countdowns</h3>
       <div id="countdowns-list" class="countdowns-list"></div>
       <form id="add-countdown-form" class="add-countdown-form">
+        <div class="emoji-picker-wrapper">
+          <button type="button" id="emoji-trigger" class="emoji-trigger" title="Pick an emoji">😀</button>
+          <div id="emoji-popup" class="emoji-popup hidden"></div>
+        </div>
         <input type="text" id="countdown-label" placeholder="Label" required maxlength="20">
         <input type="date" id="countdown-date" required>
         <button type="submit">Add</button>
