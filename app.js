@@ -101,7 +101,7 @@
     // Toggle popup on trigger click
     trigger.addEventListener("click", function (e) {
       e.stopPropagation();
-      if (selectedEmoji && !popup.classList.contains("hidden")) {
+      if (!popup.classList.contains("hidden")) {
         popup.classList.add("hidden");
         return;
       }
@@ -109,9 +109,8 @@
         selectedEmoji = null;
         trigger.textContent = "😀";
         trigger.classList.remove("has-emoji");
-        return;
       }
-      popup.classList.toggle("hidden");
+      popup.classList.remove("hidden");
     });
 
     // Close popup when clicking outside
