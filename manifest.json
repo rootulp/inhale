@@ -1,16 +1,16 @@
 {
   "manifest_version": 3,
-  "name": "Inhale",
-  "version": "0.1.0",
-  "description": "A clean, focused new tab page with nature photos, clock, and daily inspiration.",
+  "name": "Inhale — Calm New Tab",
+  "version": "1.0.0",
+  "description": "Replace your new tab with a calm, focused page — live clock, weather, daily focus, breathing exercises, and inspirational quotes.",
   "permissions": ["storage"],
-  "chrome_url_overrides": {
-    "newtab": "newtab.html"
-  },
   "host_permissions": [
     "https://api.open-meteo.com/*",
     "https://geocoding-api.open-meteo.com/*"
   ],
+  "chrome_url_overrides": {
+    "newtab": "newtab.html"
+  },
   "icons": {
     "16": "icons/icon-16.png",
     "48": "icons/icon-48.png",

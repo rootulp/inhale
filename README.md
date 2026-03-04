@@ -1,14 +1,25 @@
-# Inhale
+# Inhale — Calm New Tab
 
-Inhale is a Chrome extension that was inspired by
-[Momentum](https://chromewebstore.google.com/detail/momentum/laookkfknpbbblfpciffpaejjkokdgca?hl=en).
+A Chrome extension that replaces your new tab with a calm, focused page. Inspired by [Momentum](https://chromewebstore.google.com/detail/momentum/laookkfknpbbblfpciffpaejjkokdgca?hl=en).
 
-The first version of Inhale is complete when:
-- A user can install the extension via the Chrome web store
-- Once installed, when a user creates a new tab, the Inhale page is displayed
-- The inhale page is simple and clean. It has these minimal features:
-    - Beautiful full-screen background photo (pull from Unsplash API — free for open source)
-    - Greeting with the user's name + time of day ("Good morning, Rootul")
-    - Clock (big, centered)
-    - A single daily focus prompt ("What is your main focus today?")
-    - An inspirational quote
+## Features
+
+- Live clock (12-hour / 24-hour)
+- Personalized greeting
+- Daily focus prompt
+- Inspirational quotes
+- Weather widget (via Open-Meteo)
+- Quick-access bookmarks
+- Breathing exercise
+- Countdown timers
+- Dark, light, and system theme modes
+- Multiple gradient palettes
+- Full settings panel
+
+## Install
+
+Install from the [Chrome Web Store](#) or load unpacked from this repo.
+
+## Privacy
+
+All data is stored locally on your device. See [Privacy Policy](docs/privacy.md).
