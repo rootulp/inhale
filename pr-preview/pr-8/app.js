@@ -142,13 +142,6 @@
       var chip = document.createElement("div");
       chip.className = "countdown-chip";
       var days = daysUntil(c.date);
-      if (c.emoji) {
-        var emojiSpan = document.createElement("span");
-        emojiSpan.className = "countdown-emoji";
-        emojiSpan.textContent = c.emoji;
-        chip.appendChild(emojiSpan);
-        chip.appendChild(document.createTextNode(" "));
-      }
       chip.appendChild(document.createTextNode(c.label + " "));
       var daysSpan = document.createElement("span");
       daysSpan.className = "countdown-days";
@@ -183,7 +176,7 @@
       item.className = "countdown-item";
 
       var info = document.createElement("div");
-      info.textContent = (c.emoji ? c.emoji + " " : "") + c.label + " ";
+      info.textContent = c.label + " ";
       var dateSpan = document.createElement("span");
       dateSpan.textContent = c.date;
       info.appendChild(dateSpan);
@@ -245,10 +238,7 @@
 
       storage.get([COUNTDOWNS_KEY], function (result) {
         var countdowns = result[COUNTDOWNS_KEY] || [];
-        var entry = { id: Date.now().toString(), label: label, date: date };
-        var emoji = document.getElementById("countdown-emoji").value.trim();
-        if (emoji) entry.emoji = emoji;
-        countdowns.push(entry);
+        countdowns.push({ id: Date.now().toString(), label: label, date: date });
         storage.set({ [COUNTDOWNS_KEY]: countdowns }, function () {
           renderCountdownsList(countdowns);
           renderCountdowns(countdowns);

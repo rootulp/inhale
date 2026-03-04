@@ -331,12 +331,3 @@ body {
   color: #333;
 }
 
-/* Emoji input */
-.emoji-input {
-  flex: 0 0 2.5rem !important;
-  width: 2.5rem;
-  text-align: center;
-  font-size: 1.1rem;
-  padding: 0.35rem !important;
-  cursor: pointer;
-}
