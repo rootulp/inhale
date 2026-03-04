@@ -306,7 +306,7 @@ body {
 }
 
 .add-countdown-form input[type="text"] {
-  flex: 1 1 0;
+  flex: 1 1 100%;
 }
 
 .add-countdown-form input[type="date"] {
@@ -331,68 +331,12 @@ body {
   color: #333;
 }
 
-/* Emoji picker */
-.emoji-picker-wrapper {
-  position: relative;
-}
-
-.emoji-trigger {
-  width: 2.25rem;
-  height: 2.25rem;
+/* Emoji input */
+.emoji-input {
+  flex: 0 0 2.5rem !important;
+  width: 2.5rem;
+  text-align: center;
   font-size: 1.1rem;
-  line-height: 1;
-  border: 2px solid rgba(255, 255, 255, 0.3);
-  border-radius: 6px;
-  background: rgba(255, 255, 255, 0.1);
+  padding: 0.35rem !important;
   cursor: pointer;
-  transition: border-color 0.2s;
-  padding: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.emoji-trigger:hover {
-  border-color: rgba(255, 255, 255, 0.6);
-}
-
-.emoji-trigger.has-emoji {
-  border-color: rgba(255, 255, 255, 0.5);
-  background: rgba(255, 255, 255, 0.15);
-}
-
-.emoji-popup {
-  position: absolute;
-  bottom: calc(100% + 0.5rem);
-  left: 0;
-  background: rgba(0, 0, 0, 0.7);
-  backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  border-radius: 10px;
-  padding: 0.5rem;
-  display: grid;
-  grid-template-columns: repeat(6, 1fr);
-  gap: 0.15rem;
-  z-index: 200;
-  width: max-content;
-}
-
-.emoji-option {
-  width: 2rem;
-  height: 2rem;
-  font-size: 1.1rem;
-  line-height: 1;
-  background: none;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: background 0.15s;
-  padding: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.emoji-option:hover {
-  background: rgba(255, 255, 255, 0.2);
 }
