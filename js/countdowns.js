@@ -48,10 +48,27 @@ export function renderSettingsList(countdowns) {
     item.className = "countdown-item";
 
     const info = document.createElement("div");
-    info.textContent = c.label + " ";
+    info.className = "countdown-info";
+
+    const labelSpan = document.createElement("span");
+    labelSpan.className = "countdown-label-text";
+    labelSpan.textContent = c.label;
+    info.appendChild(labelSpan);
+
     const dateSpan = document.createElement("span");
-    dateSpan.textContent = c.date;
+    dateSpan.textContent = " " + c.date;
     info.appendChild(dateSpan);
+
+    const actions = document.createElement("div");
+    actions.className = "countdown-actions";
+
+    const edit = document.createElement("button");
+    edit.className = "countdown-edit";
+    edit.textContent = "\u270E";
+    edit.title = "Edit name";
+    edit.addEventListener("click", () => {
+      startEditingCountdown(c, labelSpan, edit);
+    });
 
     const del = document.createElement("button");
     del.className = "countdown-delete";
@@ -61,10 +78,62 @@ export function renderSettingsList(countdowns) {
       deleteCountdown(c.id);
     });
 
+    actions.appendChild(edit);
+    actions.appendChild(del);
     item.appendChild(info);
-    item.appendChild(del);
+    item.appendChild(actions);
     list.appendChild(item);
   });
+}
+
+function startEditingCountdown(countdown, labelSpan, editBtn) {
+  const input = document.createElement("input");
+  input.type = "text";
+  input.className = "countdown-edit-input";
+  input.value = countdown.label;
+  input.maxLength = 20;
+
+  labelSpan.replaceWith(input);
+  input.focus();
+  input.select();
+  editBtn.classList.add("hidden");
+
+  async function save() {
+    const newLabel = input.value.trim();
+    if (newLabel && newLabel !== countdown.label) {
+      await saveCountdownLabel(countdown.id, newLabel);
+    } else {
+      const span = document.createElement("span");
+      span.className = "countdown-label-text";
+      span.textContent = countdown.label;
+      input.replaceWith(span);
+      editBtn.classList.remove("hidden");
+    }
+  }
+
+  input.addEventListener("blur", save);
+  input.addEventListener("keydown", (e) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      input.blur();
+    }
+    if (e.key === "Escape") {
+      input.value = countdown.label;
+      input.blur();
+    }
+  });
+}
+
+async function saveCountdownLabel(id, newLabel) {
+  const result = await storage.get([COUNTDOWNS_KEY]);
+  const countdowns = result[COUNTDOWNS_KEY] || [];
+  const countdown = countdowns.find((c) => c.id === id);
+  if (countdown) {
+    countdown.label = newLabel;
+    await storage.set({ [COUNTDOWNS_KEY]: countdowns });
+    renderSettingsList(countdowns);
+    renderChips(countdowns);
+  }
 }
 
 async function deleteCountdown(id) {
