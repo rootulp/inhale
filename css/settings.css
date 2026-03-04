@@ -215,12 +215,14 @@
 
 .add-countdown-form {
   display: flex;
+  flex-wrap: wrap;
   gap: 0.5rem;
-  align-items: center;
 }
 
-.add-countdown-form input[type="text"] {
+.add-countdown-form input[type="text"],
+.add-countdown-form input[type="date"] {
   flex: 1;
+  min-width: 0;
   padding: 0.5rem 0.75rem;
   font-size: 0.9rem;
   border: none;
@@ -230,13 +232,12 @@
   outline: none;
 }
 
+.add-countdown-form input[type="text"] {
+  flex: 1 1 100%;
+}
+
 .add-countdown-form input[type="date"] {
-  padding: 0.5rem 0.75rem;
-  font-size: 0.9rem;
-  border: none;
-  border-radius: 6px;
-  background: var(--input-bg);
-  color: var(--input-text);
+  flex: 1 1 55%;
   outline: none;
 }
 

@@ -179,18 +179,29 @@ body {
   top: 1.5rem;
   right: 1.5rem;
   display: flex;
-  gap: 0.75rem;
-  flex-wrap: wrap;
-  justify-content: flex-end;
+  flex-direction: column;
+  gap: 0.5rem;
+  align-items: flex-end;
   max-width: 50%;
 }
 
 .countdown-chip {
-  font-size: 0.85rem;
-  font-weight: 300;
-  opacity: 0.7;
-  text-shadow: var(--text-shadow-sm);
+  font-size: 0.8rem;
+  font-weight: 400;
+  letter-spacing: 0.03em;
+  padding: 0.35rem 0.85rem;
+  background: var(--glass-bg);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid var(--glass-border);
+  border-radius: 20px;
   white-space: nowrap;
+  text-shadow: var(--text-shadow-sm);
+}
+
+.countdown-chip .countdown-days {
+  font-weight: 600;
+  margin-left: 0.3rem;
 }
 
 /* Font size classes */

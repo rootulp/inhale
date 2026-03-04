@@ -22,7 +22,12 @@ function renderChips(countdowns) {
   sorted.forEach((c) => {
     const chip = document.createElement("div");
     chip.className = "countdown-chip";
-    chip.textContent = c.label + " " + daysUntil(c.date) + "d";
+    const days = daysUntil(c.date);
+    chip.appendChild(document.createTextNode(c.label + " "));
+    const daysSpan = document.createElement("span");
+    daysSpan.className = "countdown-days";
+    daysSpan.textContent = days + "d";
+    chip.appendChild(daysSpan);
     container.appendChild(chip);
   });
 }
