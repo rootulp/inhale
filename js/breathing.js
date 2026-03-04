@@ -5,6 +5,7 @@ const PHASES = [
   { label: '', duration: 2000 }  // pause
 ];
 const CYCLE_DURATION = 16000;
+const TOTAL_CYCLES = 5;
 
 let circle;
 let label;
@@ -19,9 +20,12 @@ function setLabel(text) {
 }
 
 function setCounter(count) {
-  if (counter) {
-    counter.textContent = count > 0 ? `Cycle ${count}` : '';
-  }
+  if (!counter) return;
+  if (count <= 0) { counter.textContent = ''; return; }
+  const dots = Array.from({ length: TOTAL_CYCLES }, (_, i) =>
+    i < count ? '●' : '○'
+  ).join(' ');
+  counter.textContent = dots;
 }
 
 function runPhases() {
@@ -38,9 +42,14 @@ function runPhases() {
     elapsed += phase.duration;
   });
 
-  // Schedule next cycle
+  // Schedule next cycle or finish
   const cycleId = setTimeout(() => {
-    if (running) runPhases();
+    if (running && cycleCount < TOTAL_CYCLES) {
+      runPhases();
+    } else if (running) {
+      setLabel('Well done');
+      setTimeout(() => hide(), 1500);
+    }
   }, CYCLE_DURATION);
   timeouts.push(cycleId);
 }

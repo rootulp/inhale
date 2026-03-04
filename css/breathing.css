@@ -68,7 +68,7 @@
 }
 
 .breathing-circle.animate {
-  animation: breathe-cycle 16s infinite;
+  animation: breathe-cycle 16s 5;
 }
 
 @keyframes breathe-cycle {
