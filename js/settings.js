@@ -30,6 +30,20 @@ async function saveSettings(settings) {
   await storage.set({ [SETTINGS_KEY]: settings });
 }
 
+const WIDGET_KEYS = ["weather", "focus", "quote", "countdowns", "bookmarks"];
+
+async function updateSetting(key, value) {
+  const settings = await getSettings();
+  if (key.startsWith("widgets.")) {
+    const widget = key.split(".")[1];
+    settings.widgets[widget] = value;
+  } else {
+    settings[key] = value;
+  }
+  await saveSettings(settings);
+  return settings;
+}
+
 function switchTab(tabName) {
   document.querySelectorAll(".settings-tab").forEach((t) => {
     t.classList.toggle("active", t.dataset.tab === tabName);
@@ -54,8 +68,7 @@ async function populateControls() {
   document.getElementById("setting-font-size").value = settings.fontSize;
 
   // Widgets
-  const widgetKeys = ["weather", "focus", "quote", "countdowns", "bookmarks"];
-  widgetKeys.forEach((w) => {
+  WIDGET_KEYS.forEach((w) => {
     const checkbox = document.getElementById("setting-widget-" + w);
     if (checkbox) checkbox.checked = settings.widgets[w];
   });
@@ -102,53 +115,40 @@ function bindControls() {
 
   // Clock format
   document.getElementById("setting-clock-format").addEventListener("change", async (e) => {
-    const settings = await getSettings();
-    settings.clockFormat = e.target.value;
-    await saveSettings(settings);
+    await updateSetting("clockFormat", e.target.value);
     dispatch("inhale:setting-change", { key: "clockFormat", value: e.target.value });
   });
 
   // Greeting toggle
   document.getElementById("setting-greeting").addEventListener("change", async (e) => {
-    const settings = await getSettings();
-    settings.greeting = e.target.checked;
-    await saveSettings(settings);
+    await updateSetting("greeting", e.target.checked);
     dispatch("inhale:setting-change", { key: "greeting", value: e.target.checked });
   });
 
   // Theme
   document.getElementById("setting-theme").addEventListener("change", async (e) => {
-    const settings = await getSettings();
-    settings.theme = e.target.value;
-    await saveSettings(settings);
+    await updateSetting("theme", e.target.value);
     dispatch("inhale:theme-change", { theme: e.target.value });
   });
 
   // Palette
   document.getElementById("setting-palette").addEventListener("change", async (e) => {
-    const settings = await getSettings();
-    settings.palette = e.target.value;
-    await saveSettings(settings);
+    await updateSetting("palette", e.target.value);
     dispatch("inhale:setting-change", { key: "palette", value: e.target.value });
   });
 
   // Font size
   document.getElementById("setting-font-size").addEventListener("change", async (e) => {
-    const settings = await getSettings();
-    settings.fontSize = e.target.value;
-    await saveSettings(settings);
+    await updateSetting("fontSize", e.target.value);
     dispatch("inhale:setting-change", { key: "fontSize", value: e.target.value });
   });
 
   // Widget toggles
-  const widgetKeys = ["weather", "focus", "quote", "countdowns", "bookmarks"];
-  widgetKeys.forEach((w) => {
+  WIDGET_KEYS.forEach((w) => {
     const checkbox = document.getElementById("setting-widget-" + w);
     if (!checkbox) return;
     checkbox.addEventListener("change", async (e) => {
-      const settings = await getSettings();
-      settings.widgets[w] = e.target.checked;
-      await saveSettings(settings);
+      await updateSetting("widgets." + w, e.target.checked);
       updateWidgetSubsettings(w, e.target.checked);
       dispatch("inhale:widget-toggle", { widget: w, enabled: e.target.checked });
     });

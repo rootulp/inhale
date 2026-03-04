@@ -6,10 +6,13 @@ import * as quotes from "./quotes.js";
 import * as countdowns from "./countdowns.js";
 import { init as settingsInit, getSettings } from "./settings.js";
 
+const VALID_FONT_SIZES = ["small", "medium", "large"];
+
 function applyFontSize(size) {
   const html = document.documentElement;
+  const safeSize = VALID_FONT_SIZES.includes(size) ? size : "medium";
   html.classList.remove("font-size-small", "font-size-medium", "font-size-large");
-  html.classList.add("font-size-" + (size || "medium"));
+  html.classList.add("font-size-" + safeSize);
 }
 
 async function showSetup() {
@@ -26,6 +29,8 @@ async function showSetup() {
   });
 }
 
+let mainInitialized = false;
+
 async function showMain(name) {
   const settings = await getSettings();
 
@@ -41,12 +46,15 @@ async function showMain(name) {
   countdowns.init();
   settingsInit();
 
-  // Listen for font size changes
-  window.addEventListener("inhale:setting-change", (e) => {
-    if (e.detail && e.detail.key === "fontSize") {
-      applyFontSize(e.detail.value);
-    }
-  });
+  if (!mainInitialized) {
+    mainInitialized = true;
+    // Listen for font size changes
+    window.addEventListener("inhale:setting-change", (e) => {
+      if (e.detail && e.detail.key === "fontSize") {
+        applyFontSize(e.detail.value);
+      }
+    });
+  }
 }
 
 // --- Init ---

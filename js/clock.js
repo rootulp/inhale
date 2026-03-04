@@ -1,12 +1,14 @@
 let clockFormat = "12h";
 let greetingVisible = true;
 let currentName = "";
+let initialized = false;
 
 function formatTime(date) {
   if (clockFormat === "24h") {
     const hours = date.getHours();
+    const hrs = hours < 10 ? "0" + hours : hours;
     const mins = date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes();
-    return hours + ":" + mins;
+    return hrs + ":" + mins;
   }
   let hours = date.getHours();
   const minutes = date.getMinutes();
@@ -47,6 +49,9 @@ export function init(name, settings) {
 
   updateClock();
   updateGreeting();
+
+  if (initialized) return;
+  initialized = true;
 
   setInterval(updateClock, 1000);
   setInterval(updateGreeting, 60000);
