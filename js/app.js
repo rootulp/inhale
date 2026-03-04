@@ -6,6 +6,7 @@ import * as quotes from "./quotes.js";
 import * as countdowns from "./countdowns.js";
 import * as weather from "./weather.js";
 import * as focus from "./focus.js";
+import * as bookmarks from "./bookmarks.js";
 import { init as settingsInit, getSettings } from "./settings.js";
 
 const VALID_FONT_SIZES = ["small", "medium", "large"];
@@ -49,6 +50,8 @@ async function showMain(name) {
   weather.init();
   weather.renderSettingsPanel();
   focus.init();
+  bookmarks.init();
+  bookmarks.renderSettingsPanel();
   settingsInit();
 
   if (!mainInitialized) {
