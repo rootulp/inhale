@@ -1,3 +1,31 @@
+/* Theme tokens */
+:root,
+[data-theme="dark"] {
+  --bg-overlay: rgba(0, 0, 0, 0.35);
+  --glass-bg: rgba(255, 255, 255, 0.08);
+  --glass-border: rgba(255, 255, 255, 0.15);
+  --glass-shadow: 0 4px 24px rgba(0, 0, 0, 0.2);
+  --text-primary: #fff;
+  --text-secondary: rgba(255, 255, 255, 0.7);
+  --text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  --text-shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.3);
+  --input-bg: rgba(255, 255, 255, 0.9);
+  --input-text: #333;
+}
+
+[data-theme="light"] {
+  --bg-overlay: rgba(255, 255, 255, 0.25);
+  --glass-bg: rgba(255, 255, 255, 0.55);
+  --glass-border: rgba(0, 0, 0, 0.08);
+  --glass-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+  --text-primary: #1a1a2e;
+  --text-secondary: rgba(0, 0, 0, 0.55);
+  --text-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  --text-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.08);
+  --input-bg: rgba(255, 255, 255, 0.95);
+  --input-text: #1a1a2e;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -13,7 +41,7 @@ html, body {
 
 body {
   background-color: #1a1a2e;
-  color: #fff;
+  color: var(--text-primary);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -35,7 +63,7 @@ body {
 
 .setup-container {
   text-align: center;
-  background: rgba(0, 0, 0, 0.5);
+  background: var(--glass-bg);
   padding: 3rem;
   border-radius: 12px;
   backdrop-filter: blur(10px);
@@ -45,14 +73,14 @@ body {
   font-size: 2rem;
   font-weight: 300;
   margin-bottom: 0.5rem;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  text-shadow: var(--text-shadow-sm);
 }
 
 .setup-container p {
   font-size: 1.2rem;
   font-weight: 300;
   margin-bottom: 1.5rem;
-  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+  text-shadow: var(--text-shadow-sm);
 }
 
 #name-input {
@@ -63,8 +91,8 @@ body {
   outline: none;
   width: 250px;
   text-align: center;
-  background: rgba(255, 255, 255, 0.9);
-  color: #333;
+  background: var(--input-bg);
+  color: var(--input-text);
 }
 
 #name-form button {
@@ -72,17 +100,17 @@ body {
   margin: 1rem auto 0;
   padding: 0.6rem 2rem;
   font-size: 1rem;
-  border: 2px solid #fff;
+  border: 2px solid var(--text-primary);
   border-radius: 6px;
   background: transparent;
-  color: #fff;
+  color: var(--text-primary);
   cursor: pointer;
   transition: background 0.2s, color 0.2s;
 }
 
 #name-form button:hover {
-  background: #fff;
-  color: #333;
+  background: var(--text-primary);
+  color: var(--input-text);
 }
 
 /* Main content */
@@ -108,7 +136,7 @@ body {
 .clock {
   font-size: 6rem;
   font-weight: 200;
-  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+  text-shadow: var(--text-shadow);
   letter-spacing: 0.05em;
 }
 
@@ -116,7 +144,7 @@ body {
   font-size: 1.5rem;
   font-weight: 300;
   margin-top: 0.5rem;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+  text-shadow: var(--text-shadow);
 }
 
 .quote-container {
@@ -129,7 +157,7 @@ body {
   font-size: 1.1rem;
   font-weight: 300;
   font-style: italic;
-  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+  text-shadow: var(--text-shadow-sm);
   line-height: 1.6;
 }
 
@@ -138,7 +166,7 @@ body {
   font-weight: 300;
   margin-top: 0.5rem;
   opacity: 0.8;
-  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+  text-shadow: var(--text-shadow-sm);
 }
 
 /* Countdowns */
@@ -157,7 +185,7 @@ body {
   font-size: 0.85rem;
   font-weight: 300;
   opacity: 0.7;
-  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+  text-shadow: var(--text-shadow-sm);
   white-space: nowrap;
 }
 
@@ -168,12 +196,12 @@ body {
   right: 1.5rem;
   background: none;
   border: none;
-  color: #fff;
+  color: var(--text-primary);
   font-size: 1.5rem;
   cursor: pointer;
   opacity: 0.4;
   transition: opacity 0.2s;
-  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+  text-shadow: var(--text-shadow-sm);
 }
 
 .settings-btn:hover {
@@ -195,28 +223,28 @@ body {
 }
 
 .settings-modal {
-  background: rgba(0, 0, 0, 0.5);
+  background: var(--glass-bg);
   backdrop-filter: blur(10px);
   border-radius: 12px;
   padding: 2rem;
   min-width: 340px;
   max-width: 400px;
   position: relative;
-  color: #fff;
+  color: var(--text-primary);
 }
 
 .settings-modal h2 {
   font-size: 1.4rem;
   font-weight: 300;
   margin-bottom: 1.5rem;
-  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+  text-shadow: var(--text-shadow-sm);
 }
 
 .settings-modal h3 {
   font-size: 1rem;
   font-weight: 400;
   margin-bottom: 0.75rem;
-  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+  text-shadow: var(--text-shadow-sm);
 }
 
 .settings-close {
@@ -225,7 +253,7 @@ body {
   right: 1rem;
   background: none;
   border: none;
-  color: #fff;
+  color: var(--text-primary);
   font-size: 1.5rem;
   cursor: pointer;
   opacity: 0.7;
@@ -257,7 +285,7 @@ body {
 .countdown-delete {
   background: none;
   border: none;
-  color: #fff;
+  color: var(--text-primary);
   font-size: 1.2rem;
   cursor: pointer;
   opacity: 0.5;
@@ -288,8 +316,8 @@ body {
   font-size: 0.9rem;
   border: none;
   border-radius: 6px;
-  background: rgba(255, 255, 255, 0.9);
-  color: #333;
+  background: var(--input-bg);
+  color: var(--input-text);
   outline: none;
 }
 
@@ -298,24 +326,24 @@ body {
   font-size: 0.9rem;
   border: none;
   border-radius: 6px;
-  background: rgba(255, 255, 255, 0.9);
-  color: #333;
+  background: var(--input-bg);
+  color: var(--input-text);
   outline: none;
 }
 
 .add-countdown-form button {
   padding: 0.5rem 1rem;
   font-size: 0.9rem;
-  border: 2px solid #fff;
+  border: 2px solid var(--text-primary);
   border-radius: 6px;
   background: transparent;
-  color: #fff;
+  color: var(--text-primary);
   cursor: pointer;
   transition: background 0.2s, color 0.2s;
   white-space: nowrap;
 }
 
 .add-countdown-form button:hover {
-  background: #fff;
-  color: #333;
+  background: var(--text-primary);
+  color: var(--input-text);
 }

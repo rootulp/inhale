@@ -1,5 +1,6 @@
 const STORAGE_KEY = "inhale_user_name";
 const COUNTDOWNS_KEY = "inhale_countdowns";
+const SETTINGS_KEY = "inhale_settings";
 
 // Storage shim (falls back to localStorage for web preview)
 // Promise-based API wrapping the callback-based chrome.storage.local
@@ -37,4 +38,4 @@ const storage = {
 };
 
 export default storage;
-export { STORAGE_KEY, COUNTDOWNS_KEY };
+export { STORAGE_KEY, COUNTDOWNS_KEY, SETTINGS_KEY };

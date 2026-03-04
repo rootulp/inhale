@@ -1,11 +1,13 @@
 import storage, { STORAGE_KEY } from "./storage.js";
+import * as theme from "./theme.js";
 import * as backgrounds from "./backgrounds.js";
 import * as clock from "./clock.js";
 import * as quotes from "./quotes.js";
 import * as countdowns from "./countdowns.js";
 import * as settings from "./settings.js";
 
-function showSetup() {
+async function showSetup() {
+  await theme.init();
   document.getElementById("setup").classList.remove("hidden");
   document.getElementById("main").classList.add("hidden");
 
@@ -18,7 +20,8 @@ function showSetup() {
   });
 }
 
-function showMain(name) {
+async function showMain(name) {
+  await theme.init();
   document.getElementById("setup").classList.add("hidden");
   document.getElementById("main").classList.remove("hidden");
 
