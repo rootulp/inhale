@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>New Tab</title>
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/settings.css">
+  <link rel="stylesheet" href="css/weather.css">
+  <link rel="stylesheet" href="css/focus.css">
+  <link rel="stylesheet" href="css/bookmarks.css">
+  <link rel="stylesheet" href="css/breathing.css">
+</head>
+<body>
+  <!-- Name setup prompt (shown on first visit) -->
+  <div id="setup" class="hidden">
+    <div class="setup-container">
+      <h1>Welcome to Inhale</h1>
+      <p>What's your name?</p>
+      <form id="name-form">
+        <input type="text" id="name-input" placeholder="Enter your name" autocomplete="off" required>
+        <button type="submit">Get Started</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Main content (shown after name is set) -->
+  <div id="main" class="hidden">
+    <div id="countdowns" class="countdowns"></div>
+    <div class="content">
+      <div id="clock" class="clock"></div>
+      <div id="greeting" class="greeting"></div>
+      <div id="focus" class="focus">
+        <input type="text" id="focus-input" class="focus-input" placeholder="What's your focus today?" maxlength="100">
+        <p id="focus-text" class="focus-text hidden"></p>
+      </div>
+    </div>
+    <div class="quote-container">
+      <p id="quote" class="quote"></p>
+      <p id="quote-author" class="quote-author"></p>
+    </div>
+    <div id="bookmarks" class="bookmarks"></div>
+    <div id="weather" class="weather hidden">
+      <span id="weather-icon" class="weather-icon"></span>
+      <div class="weather-info">
+        <span id="weather-temp" class="weather-temp"></span>
+        <span id="weather-condition" class="weather-condition"></span>
+        <span id="weather-range" class="weather-range"></span>
+      </div>
+    </div>
+    <button id="breathe-btn" class="breathe-btn" title="Breathing exercise">Breathe</button>
+    <button id="settings-btn" class="settings-btn" title="Settings">&#9881;</button>
+  </div>
+
+  <!-- Breathing overlay -->
+  <div id="breathing-overlay" class="breathing-overlay hidden">
+    <button id="breathing-close" class="breathing-close">&times;</button>
+    <div class="breathing-content">
+      <div id="breathing-circle" class="breathing-circle"></div>
+      <p id="breathing-label" class="breathing-label">Inhale...</p>
+    </div>
+    <p id="breathing-counter" class="breathing-counter"></p>
+  </div>
+
+  <!-- Settings modal -->
+  <div id="settings-overlay" class="settings-overlay hidden">
+    <div class="settings-modal">
+      <button id="settings-close" class="settings-close">&times;</button>
+      <h2>Settings</h2>
+
+      <div class="settings-tabs">
+        <button class="settings-tab active" data-tab="general">General</button>
+        <button class="settings-tab" data-tab="appearance">Appearance</button>
+        <button class="settings-tab" data-tab="widgets">Widgets</button>
+        <button class="settings-tab" data-tab="about">About</button>
+      </div>
+
+      <!-- General tab -->
+      <div class="settings-panel active" data-panel="general">
+        <div class="settings-field">
+          <label for="setting-name">Name</label>
+          <input type="text" id="setting-name" maxlength="30" autocomplete="off">
+        </div>
+        <div class="settings-field">
+          <label for="setting-clock-format">Clock format</label>
+          <select id="setting-clock-format">
+            <option value="12h">12-hour</option>
+            <option value="24h">24-hour</option>
+          </select>
+        </div>
+        <div class="settings-field">
+          <label for="setting-greeting">Show greeting</label>
+          <input type="checkbox" id="setting-greeting" checked>
+        </div>
+      </div>
+
+      <!-- Appearance tab -->
+      <div class="settings-panel" data-panel="appearance">
+        <div class="settings-field">
+          <label for="setting-theme">Theme</label>
+          <select id="setting-theme">
+            <option value="system">System</option>
+            <option value="dark">Dark</option>
+            <option value="light">Light</option>
+          </select>
+        </div>
+        <div class="settings-field">
+          <label for="setting-palette">Gradient palette</label>
+          <select id="setting-palette">
+            <option value="warm">Warm</option>
+            <option value="cool">Cool</option>
+            <option value="muted">Muted</option>
+            <option value="vibrant">Vibrant</option>
+          </select>
+        </div>
+        <div class="settings-field">
+          <label for="setting-font-size">Font size</label>
+          <select id="setting-font-size">
+            <option value="small">Small</option>
+            <option value="medium">Medium</option>
+            <option value="large">Large</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Widgets tab -->
+      <div class="settings-panel" data-panel="widgets">
+        <div class="settings-field">
+          <label for="setting-widget-weather">Weather</label>
+          <input type="checkbox" id="setting-widget-weather" checked>
+        </div>
+        <div class="widget-subsettings hidden" id="weather-settings"></div>
+
+        <div class="settings-field">
+          <label for="setting-widget-focus">Daily focus</label>
+          <input type="checkbox" id="setting-widget-focus" checked>
+        </div>
+
+        <div class="settings-field">
+          <label for="setting-widget-quote">Quote</label>
+          <input type="checkbox" id="setting-widget-quote" checked>
+        </div>
+
+        <div class="settings-field">
+          <label for="setting-widget-countdowns">Countdowns</label>
+          <input type="checkbox" id="setting-widget-countdowns" checked>
+        </div>
+        <div class="widget-subsettings" id="countdowns-settings">
+          <div id="countdowns-list" class="countdowns-list"></div>
+          <form id="add-countdown-form" class="add-countdown-form">
+            <input type="text" id="countdown-label" placeholder="Label" required maxlength="20">
+            <input type="date" id="countdown-date" required>
+            <button type="submit">Add</button>
+          </form>
+        </div>
+
+        <div class="settings-field">
+          <label for="setting-widget-bookmarks">Bookmarks</label>
+          <input type="checkbox" id="setting-widget-bookmarks" checked>
+        </div>
+        <div class="widget-subsettings hidden" id="bookmarks-settings"></div>
+      </div>
+
+      <!-- About tab -->
+      <div class="settings-panel" data-panel="about">
+        <p class="about-text">Inhale v1.0.0</p>
+        <p class="about-text"><a href="https://github.com/rootulp/inhale" target="_blank" rel="noopener">View on GitHub</a></p>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>
