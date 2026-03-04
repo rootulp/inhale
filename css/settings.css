@@ -34,13 +34,14 @@
   box-shadow: var(--glass-shadow);
   border-radius: 12px;
   padding: 2rem;
-  min-width: 380px;
-  max-width: 440px;
+  min-width: 420px;
+  max-width: 520px;
   width: 100%;
   position: relative;
   color: var(--text-primary);
   max-height: 80vh;
   overflow-y: auto;
+  overflow-x: hidden;
   transform: translateY(20px);
   transition: transform 0.25s ease-out;
 }
@@ -186,9 +187,52 @@
   font-weight: 300;
 }
 
+.countdown-info {
+  flex: 1;
+  min-width: 0;
+}
+
 .countdown-item span {
   opacity: 0.7;
   font-size: 0.85rem;
+}
+
+.countdown-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.1rem;
+  flex-shrink: 0;
+}
+
+.countdown-edit {
+  background: none;
+  border: none;
+  color: var(--text-primary);
+  font-size: 1rem;
+  cursor: pointer;
+  opacity: 0.5;
+  transition: opacity 0.2s;
+  padding: 0 0.25rem;
+}
+
+.countdown-edit:hover {
+  opacity: 1;
+}
+
+.countdown-edit.hidden {
+  display: none;
+}
+
+.countdown-edit-input {
+  width: 100%;
+  max-width: 120px;
+  padding: 0.15rem 0.4rem;
+  font-size: 0.9rem;
+  border: 1px solid var(--glass-border);
+  border-radius: 4px;
+  background: var(--input-bg);
+  color: var(--input-text);
+  outline: none;
 }
 
 .countdown-delete {

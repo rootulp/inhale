@@ -91,6 +91,7 @@
 
 .add-bookmark-form {
   display: flex;
+  flex-wrap: wrap;
   gap: 0.5rem;
   align-items: center;
 }
@@ -119,7 +120,7 @@
 }
 
 .bookmark-url-input {
-  flex: 1;
+  flex: 1 1 100%;
   padding: 0.5rem 0.75rem;
   font-size: 0.9rem;
   border: none;
