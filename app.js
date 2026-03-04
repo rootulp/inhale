@@ -207,6 +207,13 @@
       var chip = document.createElement("div");
       chip.className = "countdown-chip";
       var days = daysUntil(c.date);
+      if (c.emoji) {
+        var emojiSpan = document.createElement("span");
+        emojiSpan.className = "countdown-emoji";
+        emojiSpan.textContent = c.emoji;
+        chip.appendChild(emojiSpan);
+        chip.appendChild(document.createTextNode(" "));
+      }
       chip.appendChild(document.createTextNode(c.label + " "));
       var daysSpan = document.createElement("span");
       daysSpan.className = "countdown-days";
@@ -241,7 +248,7 @@
       item.className = "countdown-item";
 
       var info = document.createElement("div");
-      info.textContent = c.label + " ";
+      info.textContent = (c.emoji ? c.emoji + " " : "") + c.label + " ";
       var dateSpan = document.createElement("span");
       dateSpan.textContent = c.date;
       info.appendChild(dateSpan);
