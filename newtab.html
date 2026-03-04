@@ -9,6 +9,7 @@
   <link rel="stylesheet" href="css/weather.css">
   <link rel="stylesheet" href="css/focus.css">
   <link rel="stylesheet" href="css/bookmarks.css">
+  <link rel="stylesheet" href="css/breathing.css">
 </head>
 <body>
   <!-- Name setup prompt (shown on first visit) -->
@@ -47,7 +48,18 @@
         <span id="weather-range" class="weather-range"></span>
       </div>
     </div>
+    <button id="breathe-btn" class="breathe-btn" title="Breathing exercise">Breathe</button>
     <button id="settings-btn" class="settings-btn" title="Settings">&#9881;</button>
+  </div>
+
+  <!-- Breathing overlay -->
+  <div id="breathing-overlay" class="breathing-overlay hidden">
+    <button id="breathing-close" class="breathing-close">&times;</button>
+    <div class="breathing-content">
+      <div id="breathing-circle" class="breathing-circle"></div>
+      <p id="breathing-label" class="breathing-label">Inhale...</p>
+    </div>
+    <p id="breathing-counter" class="breathing-counter"></p>
   </div>
 
   <!-- Settings modal -->
