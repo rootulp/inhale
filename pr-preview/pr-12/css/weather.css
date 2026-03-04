@@ -1,0 +1,105 @@
+/* Weather widget */
+.weather {
+  position: absolute;
+  top: 1.5rem;
+  left: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.5rem 0.85rem;
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: 999px;
+  box-shadow: var(--glass-shadow);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  color: var(--text-primary);
+  text-shadow: var(--text-shadow-sm);
+}
+
+.weather-icon {
+  font-size: 1.4rem;
+  line-height: 1;
+}
+
+.weather-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  line-height: 1.25;
+}
+
+.weather-temp {
+  font-size: 0.95rem;
+  font-weight: 400;
+}
+
+.weather-condition {
+  font-size: 0.72rem;
+  font-weight: 300;
+  color: var(--text-secondary);
+}
+
+.weather-range {
+  font-size: 0.68rem;
+  font-weight: 300;
+  color: var(--text-secondary);
+}
+
+/* Weather settings panel */
+.weather-settings-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.weather-settings-row label {
+  font-size: 0.85rem;
+  flex-shrink: 0;
+}
+
+.weather-settings-row input[type="text"] {
+  flex: 1;
+  padding: 0.35rem 0.5rem;
+  font-size: 0.85rem;
+  border: 1px solid var(--glass-border);
+  border-radius: 4px;
+  background: var(--input-bg);
+  color: var(--input-text);
+  outline: none;
+}
+
+.weather-settings-row select {
+  padding: 0.35rem 0.5rem;
+  font-size: 0.85rem;
+  border: 1px solid var(--glass-border);
+  border-radius: 4px;
+  background: var(--input-bg);
+  color: var(--input-text);
+  outline: none;
+}
+
+.weather-settings-row button,
+.weather-detect-btn {
+  padding: 0.35rem 0.75rem;
+  font-size: 0.8rem;
+  border: 1px solid var(--glass-border);
+  border-radius: 4px;
+  background: var(--glass-bg);
+  color: var(--text-primary);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.2s;
+}
+
+.weather-settings-row button:hover,
+.weather-detect-btn:hover {
+  background: var(--glass-border);
+}
+
+.weather-location-status {
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+  margin-top: 0.25rem;
+}
