@@ -140,7 +140,12 @@
     sorted.forEach(function (c) {
       var chip = document.createElement("div");
       chip.className = "countdown-chip";
-      chip.textContent = c.label + " " + daysUntil(c.date) + "d";
+      var days = daysUntil(c.date);
+      chip.appendChild(document.createTextNode(c.label + " "));
+      var daysSpan = document.createElement("span");
+      daysSpan.className = "countdown-days";
+      daysSpan.textContent = days + "d";
+      chip.appendChild(daysSpan);
       container.appendChild(chip);
     });
   }
