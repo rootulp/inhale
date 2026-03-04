@@ -43,13 +43,13 @@ Draft a short description for the listing. Example:
 
 > Inhale replaces your new tab page with a calm, focused view featuring nature photography, a live clock, a personal greeting, and daily inspirational quotes. No ads, no clutter.
 
-## 6. Create a privacy policy
+## 6. Privacy policy
 
-Chrome Web Store requires a privacy policy URL. Since Inhale only stores a first name locally via `chrome.storage.local`, the policy can be simple. Host it as a GitHub Gist, GitHub Pages page, or any public URL. It should state:
+The privacy policy is hosted via GitHub Pages at:
 
-- The extension stores only a user-provided first name, locally on the device
-- No data is collected, transmitted, or shared with third parties
-- No analytics or tracking
+**<https://rootulp.github.io/inhale/privacy.html>**
+
+The source file is `privacy.html` in the repository root. Update it if permissions or data practices change.
 
 ## 7. Package the extension
 
@@ -60,7 +60,11 @@ zip -r inhale.zip . \
   -x "docs/*" \
   -x ".git/*" \
   -x ".claude/*" \
+  -x ".github/*" \
   -x ".gitignore" \
+  -x "store/*" \
+  -x "index.html" \
+  -x "privacy.html" \
   -x "README.md" \
   -x "*.zip"
 ```
@@ -73,10 +77,11 @@ zip -r inhale.zip . \
 4. Fill in the listing details:
    - Description (from step 5)
    - Screenshots (from step 4)
+   - Small promo tile: upload `store/promo-tile.png` (440x280)
    - Category: select **Productivity** or **Fun**
    - Language: English
-   - Privacy policy URL (from step 6)
-   - Single purpose description: "Replaces the new tab page with nature photos and a clock"
+   - Privacy policy URL: `https://rootulp.github.io/inhale/privacy.html`
+   - Single purpose description: "Replaces the new tab page with a calm, focused experience"
 
 ## 9. Submit for review
 
