@@ -10,7 +10,18 @@ function applyTheme(theme) {
   document.documentElement.setAttribute("data-theme", resolved);
 }
 
+let initialized = false;
+
 async function init() {
+  if (initialized) {
+    // Re-apply theme but don't register duplicate listeners
+    const result = await storage.get([SETTINGS_KEY]);
+    const settings = result[SETTINGS_KEY] || {};
+    applyTheme(settings.theme || "system");
+    return;
+  }
+  initialized = true;
+
   const result = await storage.get([SETTINGS_KEY]);
   const settings = result[SETTINGS_KEY] || {};
   const theme = settings.theme || "system";
@@ -28,7 +39,7 @@ async function init() {
 
   // Listen for theme changes from settings modal
   window.addEventListener("inhale:theme-change", (e) => {
-    applyTheme(e.detail.theme);
+    if (e.detail) applyTheme(e.detail.theme);
   });
 }
 
